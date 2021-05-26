@@ -28,7 +28,7 @@ ARG JUPYTER_TOKEN=123456
 ENV JUPYTER_TOKEN=$JUPYTER_TOKEN
 
 EXPOSE 8888
-WORKDIR ${SHARED_WORKSPACE}
+WORKDIR ${JUPYTER_HOME}
 
 
 ENTRYPOINT jupyter notebook --NotebookApp.token=$JUPYTER_TOKEN --allow-root --no-browser --ip=0.0.0.0 --port=8888 --NotebookApp.notebook_dir=$JUPYTER_HOME
