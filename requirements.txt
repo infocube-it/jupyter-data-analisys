@@ -1,0 +1,9 @@
+pandas
+py2neo 
+cython
+py-postgresql
+pyspark 
+matplotlib
+seaborn
+voila
+ipympl
