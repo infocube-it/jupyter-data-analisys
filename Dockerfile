@@ -1,29 +1,19 @@
-FROM debian:bullseye-slim
+FROM openjdk:15.0.2-jdk-slim-buster
 
-RUN apt-get update && apt-get install -y wget
-WORKDIR /tmp
-RUN wget https://www.python.org/ftp/python/3.7.10/Python-3.7.10.tgz && tar xf Python-3.7.10.tgz
-WORKDIR /tmp/Python-3.7.10
-RUN apt-get install -y build-essential zlib1g-dev liblzma-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev curl libbz2-dev
-RUN ./configure --enable-optimizations
-RUN make -j 4 && make altinstall
-WORKDIR /tmp/Python-3.7.10
-RUN pip3.7 install jupyterlab
-
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y wget python3 python3-pip build-essential zlib1g-dev liblzma-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev curl libjpeg-dev zlib1g-dev libbz2-dev
+RUN apt-get install -y gfortran libopenblas-dev liblapack-dev
+RUN pip3 install cython jupyterlab
 
 COPY requirements.txt /tmp/
 
-RUN pip3.7 install -r /tmp/requirements.txt
-# fix a bug on jdk install
-RUN mkdir -p /usr/share/man/man1 
-# fix a bug on jdk install
-RUN apt-get install -y default-jdk
+RUN pip3 install -r /tmp/requirements.txt
 
 WORKDIR /opt
 RUN mkdir workspace
+
 ARG JUPYTER_HOME=/opt/workspace    
 ENV JUPYTER_HOME=${JUPYTER_HOME}
-
 ARG JUPYTER_TOKEN=123456
 ENV JUPYTER_TOKEN=$JUPYTER_TOKEN
 

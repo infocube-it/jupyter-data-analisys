@@ -1,3 +1,4 @@
+Pillow
 pandas
 py2neo 
 cython
@@ -7,4 +8,4 @@ matplotlib
 seaborn
 voila
 sklearn
-ipympl
+#ipympl
